@@ -1,0 +1,250 @@
+
+
+#popup {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+}
+#hidden {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    opacity: 0.3;
+    display: none;
+    z-index: 1;
+}
+#box {
+    color: black;
+    width: 550px;
+    height: 440px;
+    background-color: white;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    padding-top: 50px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 25%;
+    cursor: move;
+    display: none;
+    z-index: 1;
+}
+#close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: normal;
+    font-size: 20px;
+    display: block;
+    width: 50px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 10px;
+    color: #393C3E;
+    z-index: 1;
+}
+#close:hover {
+    background-color: #f15a22;
+    color: white;
+    cursor: pointer;
+}
+
+
+.deliveryguy-wrapper {
+    position: relative;
+    left: 0;
+    height: 140px;
+    width: 140px;
+    margin-right: auto;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 1px 1px 10px -5px black;
+    transition: all .3s ease;
+    z-index: 1;
+}
+.deliveryguy-wrapper:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+    z-index: 1;
+}
+.deliveryguy-wrapper:hover .deliveryguy-pic{
+    opacity: .5;
+    z-index: 1;
+}
+.deliveryguy-wrapper .deliveryguy-pic {
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease;
+    z-index: 1;
+}
+.deliveryguy-wrapper .deliveryguy-pic :after{
+    font-family: FontAwesome;
+    content: "\f007";
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    position: center;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+    z-index: 1;
+}
+.deliveryguy-wrapper .DGUpload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.deliveryguy-wrapper .DGUpload-button .bi-cloud-arrow-up{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 20px;
+    left: 20px;
+    /*text-align: center;*/
+    opacity: 0;
+    transition: all .3s ease;
+    color: #34495e;
+    z-index: 1;
+}
+.deliveryguy-wrapper .DGUpload-button:hover .bi-cloud-arrow-up{
+    opacity: .9;
+    z-index: 1;
+}
+.btn.btn-warning:hover {
+    background-color: #f15a22;
+    color: white  !important;
+    font-weight: bold;
+    z-index: 1;
+}
+
+
+
+.sidenav {
+    width: 300px;
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    background: white;
+    overflow-x: hidden;
+    padding: 0 0;
+    border-radius: 10px;
+}
+.sidenav a {
+    padding: 20px 8px 20px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #504f4f;
+    display: block;
+}
+.sidenav a:hover {
+    background-color: #f15a22;
+    color: white;
+    font-weight: bold;
+}
+.sidenav a.active {
+    background-color: #ffc107;
+    font-weight: bold;
+    color: black;
+}
+.main {
+    margin-left: 100px; /* Same width as the sidebar + left position in px */
+}
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+
+.f-row {
+    display: flex;
+    flex-direction: row;
+}
+.f-column {
+    display: flex;
+    flex-direction: column;
+}
+.f-row-center {
+    display: flex;
+    justify-content: center;
+}
+.f-column-center {
+    display: flex;
+    align-items: center;
+}
+
+
+/* This is where to define the table style */
+table {
+    margin-right: 100px;
+    border-collapse: collapse;
+    width: 100%
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+    width: 400px;
+}
+.tr-content {
+    height: 73px;
+}
+tr:hover {
+    background-color: silver;
+}
+.tableNewOrder-1 {
+    padding: 8px;
+    width: 12%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-2 {
+    padding: 8px;
+    width: 15%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-3 {
+    padding: 8px;
+    width: 19.5%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-4 {
+    padding: 8px;
+    width: 19.5%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-5 {
+    padding: 8px;
+    width: 17%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-6 {
+    padding: 8px;
+    width: 7%;
+    border-bottom: 1px solid #dddddd;
+}
+.tableNewOrder-7 {
+    padding: 8px;
+    width: 10%;
+    border-bottom: 1px solid #dddddd;
+}
+
+.btn.btn-warning {
+    color:black;
+    font-weight:bold;
+}
+.btn.btn-warning:hover {
+    background-color: #f15a22;
+    color: white  !important;
+    font-weight: bold;
+}

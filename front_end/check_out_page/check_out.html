@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Dine Here</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<!--		<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
+<!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="check_out.css" />
+	</head>
+	<body>
+		<div style="display: flex; flex-direction: column; min-width: 1920px;">
+			<div id="popup" >
+				<div id="hidden"></div>
+				<div id="box">
+					<p id="warning" style="color: black; font-weight: bold; margin-left: 40px; margin-right: 40px;">Please don't close this window while we are processing your payment</p>
+					<div style="display: flex; justify-content: center; margin-top: 30px; font-size: larger; width: 100%;">
+						<p id="process0" class="process">Authorizing your payment...</p>
+						<p id="process1" class="process">Verifying your card...</p>
+						<p id="process2" class="process">Payment complete!</p>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div style="display: flex; flex-direction: row; margin-top: 40px; margin-left: 40px;">
+				<img src="./logo_white.png" style="width: 42px; height: 50px; margin-top: 2px; margin-left: 10px; margin-right: 20px;" alt="bo image"></img>
+				<h1 style="font-weight: 600; font-size: xxx-large;">Dine Here</h1>
+			</div>
+			<div style="display: flex; flex-direction: row; margin-top: 30px; margin-bottom: 20px;">
+				<div style="display: flex; justify-content: center; width: 100%;">
+					<h2>Check out</h2>
+
+				</div>
+			</div>
+			<hr/>
+			<div style="display: flex; justify-content: center; margin-bottom: 60px;">
+				<div style="display: flex; flex-direction: row; padding-left: 180px; padding-right: 180px;">
+					<div style="width: 66%;" >
+						<div style="display: flex; flex-direction: column;">
+							<h3>
+								<p>Cart: </p>
+							</h3>
+							<table id="dishCart" class="table">
+								<thead>
+								<tr>
+									<th class="no">#</th>
+									<th class="dishname">dish name</th>
+									<th class="dishcount">count</th>
+									<th class="dishprice">price($)</th>
+								</tr>
+								</thead>
+
+								<tbody>
+
+								</tbody>
+							</table>
+							<!--							<div>-->
+							<!--								-->
+							<!--								<button style="align-content:flex-end;" onclick="window.location.assign('../each_restaurant_page_alternative/each_restaurant_page_alternative.html')">-->
+							<!--									<i class="bi bi-plus-lg"></i>-->
+							<!--									<svg style="vertical-align:sub;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">-->
+							<!--										<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>-->
+							<!--									</svg>-->
+							<!--									add dish-->
+							<!--								</button>-->
+							<!--							</div>-->
+						</div>
+
+						<hr id="tipgrouptitle"/>
+
+						<div id="tipgroup" style="display: flex; flex-direction: column;">
+							<h3>Tips</h3>
+							<div style="display: flex; flex-direction: row;">
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip0()">
+									<div>
+										<input id="tip0" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip0" style="vertical-align: sub; margin-left: 6px;"> 0 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip1()">
+									<div>
+										<input id="tip1" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip1" style="vertical-align: sub; margin-left: 6px;"> 5 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip2()">
+									<div>
+										<input id="tip2" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip2" style="vertical-align: sub; margin-left: 6px;"> 10 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip3()">
+									<div>
+										<input id="tip3" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption" checked="true">
+										<label for="tip3" style="vertical-align: sub; margin-left: 6px;"> 15 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip4()">
+									<div>
+										<input id="tip4" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip4" style="vertical-align: sub; margin-left: 6px;"> 20 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px; margin-right: 10px;" onclick="tip5()">
+									<div>
+										<input id="tip5" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip5" style="vertical-align: sub; margin-left: 6px;"> 25 %</label>
+									</div>
+								</div>
+								<div class="btn btn-primary radio-center" style="width: 13%; height: 40px; padding-right: 50px;" onclick="tip6()">
+									<div>
+										<input id="tip6" class="input-radio-tip" style="vertical-align: sub;" type="radio" name="TipOption">
+										<label for="tip6" style="vertical-align: sub; margin-left: 6px;"> 30 %</label>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<hr/>
+
+						<div>
+							<div style="display: flex; flex-direction: row;">
+								<div>
+									<p class="paymentTitle" class="paymentTitle" style="margin-bottom: 12px;">Subtotal: </p>
+								</div>
+								<div style="margin-left: auto; display: flex; flex-direction: row;">
+									<div style="margin-top: 2px;">
+										<i class="bi bi-currency-dollar"></i>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+											<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+										</svg>
+									</div>
+									<p id="subtotal" class="paymentValue">0.00</p>
+								</div>
+							</div>
+
+							<div style="display: flex; flex-direction: row;">
+								<div>
+									<p id="deliveryfeetitle" class="paymentTitle" style="margin-bottom: 12px;">Delivery Fee: </p>
+								</div>
+								<div style="margin-left: auto; display: flex; flex-direction: row;">
+									<div id="deliveryFeeDollar" style="margin-top: 2px;">
+										<i class="bi bi-currency-dollar"></i>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+											<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+										</svg>
+									</div>
+									<p id="deliveryfee" class="paymentValue">0.00</p>
+								</div>
+							</div>
+
+							<div style="display: flex; flex-direction: row;">
+								<div>
+									<p id="tiptitle" class="paymentTitle" style="margin-bottom: 12px;">Tips: </p>
+								</div>
+								<div style="margin-left: auto; display: flex; flex-direction: row;">
+									<div id="tipDollar" style="margin-top: 2px;">
+										<i class="bi bi-currency-dollar"></i>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+											<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+										</svg>
+									</div>
+									<p id="tip" class="paymentValue">0.00</p>
+								</div>
+							</div>
+
+							<div style="display: flex; flex-direction: row;">
+								<div>
+									<p id="taxtitle" class="paymentTitle" style="margin-bottom: 12px;">Tax: </p>
+								</div>
+								<div style="margin-left: auto; display: flex; flex-direction: row;">
+									<div style="margin-top: 2px; ">
+										<i class="bi bi-currency-dollar"></i>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+											<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+										</svg>
+									</div>
+									<p id="tax" class="paymentValue">0.00</p>
+								</div>
+							</div>
+
+							<div style="border: 1px solid black; margin-bottom: 7px;"></div>
+
+							<div style="display: flex; flex-direction: row;">
+								<div>
+									<p style="font-weight:bold;" class="paymentTitle">Total: </p>
+								</div>
+								<div style="margin-left: auto; display: flex; flex-direction: row;">
+									<div style="margin-top: 2px;">
+										<i class="bi bi-currency-dollar"></i>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+											<path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+										</svg>
+									</div>
+									<p id="total" style="font-weight:bold;" class="paymentValue">0.00</p>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div style="width: 34%; margin-left: 90px;">
+						<!--<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<a class="nav-link active" id="deliveryTab" data-toggle="tab" href="#deliveryContent" role="tab" aria-controls="deliveryContent" aria-selected="true">Home</a>
+							</li>
+							<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pickupTab" data-toggle="tab" href="#pickupContent" role="tab" aria-controls="pickupContent" aria-selected="false">Profile</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="deliveryContent" role="tabpanel" aria-labelledby="deliveryTab">1...</div>
+							<div class="tab-pane fade" id="pickupContent" role="tabpanel" aria-labelledby="pickupTab">2...</div>
+						</div>-->
+
+
+						<ul id="myTab" class="nav nav-tabs" role="tablist">
+							<li class="nav-item" role="presentation">
+								<a id="deliveryTab" class="nav-link active" data-toggle="tab" href="#deliveryContent" role="tab" aria-controls="deliveryContent" aria-selected="true" onclick="deliveryTab()" style="font-size: 22px;">Delivery Order</a>
+							</li>
+							<li class="nav-item" role="presentation">
+								<a id="pickupTab" class="nav-link" data-toggle="tab" href="#pickupContent" role="tab" aria-controls="pickupContent" aria-selected="false" onclick="pickupTab()" style="font-size: 22px;">Pickup Order</a>
+							</li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade show active" id="deliveryContent" role="tabpanel" aria-labelledby="deliveryTab">
+								<section>
+									<h3 id="deliveryNotSupported">Delivery Order is not supported</h3>
+								</section>
+								<br>
+
+								<div id="accordionDelivery">
+									<div class="card">
+										<div class="card-header" id="card-dLocation" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											<a id="dAddressTitle">
+												Location:
+											</a>
+										</div>
+										<div id="collapseOne" class="collapse" aria-labelledby="card-dLocation" data-parent="#accordionDelivery">
+											<div class="card-body">
+												<section style="padding-left: 20px;">
+													<h4>The Location is: </h4>
+													<table class="print_address">
+														<tr>
+															<td>Your current address:</td>
+														</tr>
+														<tr>
+															<td id="dAddress_value">address_value</td>
+														</tr>
+													</table>
+												</section>
+												<br>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-header" id="card-dNote" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+											<a id="dNoteTitle">
+												Notes:
+											</a>
+										</div>
+										<div id="collapseTwo" class="collapse show" aria-labelledby="card-dNote" data-parent="#accordionDelivery">
+											<div class="card-body">
+												<section style="padding-left: 20px;">
+<!--													<h4>notes: </h4>-->
+
+													<div onclick="leaveItAtDoor()">
+														<input style="padding: 12px;" type="radio" id="Leave it at door" name="noteOption" value="Leave it at door" checked="true">
+														<label for="Leave it at door">Leave it at door</label>
+													</div>
+
+													<div onclick="meetAtDoor()">
+														<input style="padding: 12px;" type="radio" id="Meet at door" name="noteOption" value="Meet at door">
+														<label for="Meet at door">Meet at door</label>
+													</div>
+
+													<div>
+														<input style="text-align: left;" type="text" id="delivery additional notes" name="noteOption" placeholder="additional notes" onfocus="this.placeholder=''" onblur="this.placeholder='additional notes'">
+													</div>
+
+												</section>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pickupContent" role="tabpanel" aria-labelledby="pickupTab">
+								<section>
+									<h3 id="pickupNotSupported">Pickup Order is not supported</h3>
+								</section>
+								<br>
+
+								<div id="accordionPickup">
+									<div class="card">
+										<div class="card-header" id="card-pLocation" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+											<a id="pAddressTitle">
+												Distance:
+											</a>
+										</div>
+										<div id="collapseFour" class="collapse" aria-labelledby="card-pLocation" data-parent="#accordionPickup">
+											<div class="card-body">
+												<section style="padding-left: 20px;">
+													<h4>Pickup Nearby: </h4>
+													<table class = "print_address">
+														<tr>
+															<td>Restaurant address:</td>
+														</tr>
+														<tr>
+															<td id="pAddress_value" style="word-wrap: break-word;">address_value</td>
+														</tr>
+														<tr>
+															<td>Estimated distance:</td>
+														</tr>
+														<tr>
+															<td id="distance_value" style="word-wrap: break-word;">distance_value</td>
+														</tr>
+													</table>
+												</section>
+												<br>
+											</div>
+										</div>
+									</div>
+									<div class="card">
+										<div class="card-header" id="card-pNote" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+											<a id="pNoteTitle">
+												Notes:
+											</a>
+										</div>
+										<div id="collapseFive" class="collapse show" aria-labelledby="card-pNote" data-parent="#accordionPickup">
+											<div class="card-body">
+												<section style="padding-left: 20px;">
+<!--													<h4>notes: </h4>-->
+
+													<div>
+														<input style="text-align: left; margin-top: 8px;" type="text" id="pickup additional notes" name="noteOption" placeholder="additional notes" onfocus="this.placeholder=''" onblur="this.placeholder='additional notes'">
+													</div>
+												</section>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div id="accordionPayment">
+							<div class="card">
+								<div class="card-header" id="card-payment" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+									<a>
+										Payments:
+									</a>
+								</div>
+								<div id="collapseThree" class="collapse" aria-labelledby="card-payment" data-parent="#accordionPayment">
+									<div class="card-body">
+										<section style="padding-left: 20px;">
+<!--											<h4>payment: </h4>-->
+
+											<div style="display: flex; flex-direction: row;">
+												<div style="display: flex; flex-direction: column;">
+													<label>Card number</label>
+													<input id="cardNumber" style="text-align: left; width: 200px;" type="text" placeholder="0000 0000 0000 0000" onfocus="this.placeholder=''" onblur="this.placeholder='0000 0000 0000 0000'" maxlength="16"></input>
+												</div>
+
+												<div style="display: flex; flex-direction: column; padding-left: 20px;">
+													<label>CVV</label>
+													<input id="cvv" style="width: 60px; text-align: left;" type="text" placeholder="000" onfocus="this.placeholder=''" onblur="this.placeholder='000'"></input>
+												</div>
+											</div>
+
+											<div style="display: flex; flex-direction: row;">
+												<div style="display: flex; flex-direction: column;">
+													<label>Name on card</label>
+													<div>
+														<input id="nameOnCard" type="text" style="text-align: left; width: 150px;" placeholder="John Smith" onfocus="this.placeholder=''" onblur="this.placeholder='John Smith'"></input>
+													</div>
+												</div>
+												<div style="display: flex; flex-direction: column; padding-left: 20px;">
+													<label>Exp date</label>
+													<div style="display: flex; flex-direction: row;">
+														<div>
+															<input id="expDateMonth" style="width: 50px; text-align: left;" type="text" placeholder="mm" onfocus="this.placeholder=''" onblur="this.placeholder='mm'" maxlength="2" min="01" max="12"></input>
+														</div>
+														<div style="padding-left: 10px;">
+															<input id="expDateDay" style="width: 50px; text-align: left;" type="text" placeholder="yy" onfocus="this.placeholder=''" onblur="this.placeholder='yy'" maxlength="2" min="22"></input>
+														</div>
+													</div>
+												</div>
+
+											</div>
+
+										</section>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<hr/>
+
+						<button id="checkoutButton" class="btn btn-primary" style="margin-top: 0px;" onclick="checkOut()">check out</button>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		
+		<script src="check_out.js"></script>
+	</body>
+</html>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.PickupOrderDao">
+    <resultMap id="type_map_order_list" type="java.util.LinkedHashMap">
+        <result column="order_number" property="orderNumber" javaType="String"/>
+        <result column="order_state" property="orderState" javaType="String"/>
+        <result column="customer_email" property="customerEmail" javaType="String"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="sub_total" property="subTotal" javaType="String"/>
+        <result column="tax" property="tax" javaType="String"/>
+        <result column="total_price" property="totalPrice" javaType="String"/>
+        <result column="note" property="note" javaType="String"/>
+        <result column="gen_date" property="genDateFromOrder" javaType="String"/>
+    </resultMap>
+    <resultMap id="type_map_order_item" type="java.util.LinkedHashMap">
+        <result column="order_id" property="orderId" javaType="Integer"/>
+        <result column="order_number" property="orderNumber" javaType="String"/>
+        <result column="dish_id" property="dishId" javaType="Integer"/>
+        <result column="dish_count" property="dishCount" javaType="Integer"/>
+        <result column="gen_date" property="genDateFromOrderItem" javaType="String"/>
+    </resultMap>
+    <resultMap id="type_map_order_log" type="java.util.LinkedHashMap">
+        <result column="order_number" property="orderNumber" javaType="String"/>
+        <result column="order_state" property="orderState" javaType="Integer"/>
+    </resultMap>
+    <resultMap id="type_map_order_all" type="java.util.LinkedHashMap">
+        <result column="order_id" property="orderId" javaType="Integer"/>
+        <result column="order_number" property="orderNumber" javaType="String"/>
+        <result column="order_state" property="orderState" javaType="String"/>
+        <result column="customer_email" property="customerEmail" javaType="String"/>
+        <result column="cus_firstName" property="customerFirstName" javaType="String"/>
+        <result column="cus_lastName" property="customerLastName" javaType="String"/>
+        <result column="cus_address" property="customerAddress" javaType="String"/>
+        <result column="cus_phone" property="customerPhone" javaType="String"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="rest_name" property="restaurantName" javaType="String"/>
+        <result column="rest_address" property="restaurantAddress" javaType="String"/>
+        <result column="rest_phone" property="restaurantPhone" javaType="String"/>
+        <result column="sub_total" property="subTotal" javaType="String"/>
+        <result column="tax" property="tax" javaType="String"/>
+        <result column="total_price" property="totalPrice" javaType="String"/>
+        <result column="note" property="note" javaType="String"/>
+        <result column="gen_date_list" property="genDateFromOrderList" javaType="String"/>
+        <collection property="dish" javaType="java.util.List" ofType="java.util.LinkedHashMap">
+            <result column="dish_id" property="dishId" javaType="Integer"/>
+            <result column="dish_name" property="dishName" javaType="String"/>
+            <result column="dish_price" property="dishPrice" javaType="String"/>
+            <result column="dish_count" property="dishCount" javaType="Integer"/>
+            <result column="gen_date_item" property="genDateFromOrderItem" javaType="String"/>
+        </collection>
+    </resultMap>
+    <resultMap id="type_map_track_order" type="java.util.LinkedHashMap">
+        <result column="order_number" property="orderNumber" javaType="String"/>
+        <collection property="log" javaType="java.util.List" ofType="java.util.LinkedHashMap">
+            <result column="order_state" property="orderState" javaType="Integer"/>
+            <result column="gen_date" property="genDate" javaType="String"/>
+        </collection>
+    </resultMap>
+<!--    a.-->
+    <select id="getOrderByCustomerEmailAndOrderState" resultMap="type_map_order_all" parameterType="java.util.HashMap">
+        select
+            list.order_number,
+            logc.order_state,
+            cus.first_name "cus_firstName",
+            cus.last_name "cus_lastName",
+            cus.address "cus_address",
+            cus.phone "cus_phone",
+            list.restaurant_email,
+            rest.restaurant_name "rest_name",
+            rest.address "rest_address",
+            rest.phone "rest_phone",
+            list.sub_total,
+            list.tax,
+            list.total_price,
+            list.note,
+            item.dish_id,
+            dish.dish_name,
+            dish.dish_price,
+            item.dish_count
+        from pickup_order_list list
+            left join
+            (
+                select loga.order_number,
+                    loga.order_state
+                from pickup_order_state_log loga
+                where loga.order_state =
+                    (
+                        select
+                            max(logb.order_state)
+                        from pickup_order_state_log logb
+                        where loga.order_number = logb.order_number
+                    )
+            ) logc
+            on list.order_number = logc.order_number
+            left join
+            (
+                pickup_order_item item
+                    left join restaurant_dish dish
+                    on item.dish_id = dish.dish_id
+            )
+            on list.order_number = item.order_number
+            left join
+                restaurant_list rest
+            on list.restaurant_email = rest.email
+            left join
+                customer_account cus
+            on list.customer_email = cus.email
+        where list.customer_email = #{customerEmail} and logc.order_state = #{orderState}
+        order by list.order_number
+    </select>
+    <select id="getOrderByRestaurantEmailAndOrderState" resultMap="type_map_order_all" parameterType="java.util.HashMap">
+        select
+            list.order_number,
+            logc.order_state,
+            cus.first_name "cus_firstName",
+            cus.last_name "cus_lastName",
+            cus.address "cus_address",
+            cus.phone "cus_phone",
+            list.restaurant_email,
+            rest.restaurant_name "rest_name",
+            rest.address "rest_address",
+            rest.phone "rest_phone",
+            list.sub_total,
+            list.tax,
+            list.total_price,
+            list.note,
+            item.dish_id,
+            dish.dish_name,
+            dish.dish_price,
+            item.dish_count
+        from pickup_order_list list
+            left join
+            (
+                select loga.order_number,
+                       loga.order_state
+                from pickup_order_state_log loga
+                where loga.order_state =
+                      (
+                          select
+                              max(logb.order_state)
+                          from pickup_order_state_log logb
+                          where loga.order_number = logb.order_number
+                      )
+            ) logc
+            on list.order_number = logc.order_number
+                left join
+            (
+                pickup_order_item item
+                    left join restaurant_dish dish
+                    on item.dish_id = dish.dish_id
+                )
+            on list.order_number = item.order_number
+            left join
+                restaurant_list rest
+            on list.restaurant_email = rest.email
+            left join
+                customer_account cus
+            on list.customer_email = cus.email
+        where list.restaurant_email = #{restaurantEmail} and logc.order_state = #{orderState}
+        order by list.order_number
+    </select>
+    <select id="getOrderByOrderNumber" resultMap="type_map_order_all" parameterType="java.util.HashMap">
+        select
+            list.order_number,
+            logc.order_state,
+            cus.first_name "cus_firstName",
+            cus.last_name "cus_lastName",
+            cus.address "cus_address",
+            cus.phone "cus_phone",
+            list.restaurant_email,
+            rest.restaurant_name "rest_name",
+            rest.address "rest_address",
+            rest.phone "rest_phone",
+            list.sub_total,
+            list.tax,
+            list.total_price,
+            list.note,
+            item.dish_id,
+            dish.dish_name,
+            dish.dish_price,
+            item.dish_count
+        from pickup_order_list list
+            left join
+            (
+                select loga.order_number,
+                       loga.order_state
+                from pickup_order_state_log loga
+                where loga.order_state =
+                      (
+                          select
+                              max(logb.order_state)
+                          from pickup_order_state_log logb
+                          where loga.order_number = logb.order_number
+                      )
+            ) logc
+            on list.order_number = logc.order_number
+            left join
+            (
+                pickup_order_item item
+                    left join restaurant_dish dish
+                    on item.dish_id = dish.dish_id
+                )
+            on list.order_number = item.order_number
+            left join
+                restaurant_list rest
+            on list.restaurant_email = rest.email
+            left join
+                customer_account cus
+            on list.customer_email = cus.email
+        where list.order_number = #{orderNumber}
+        order by list.order_number
+    </select>
+    <select id="trackOrder" resultMap="type_map_track_order" parameterType="java.util.HashMap">
+        select
+            list.order_number,
+            log.order_state,
+            log.gen_date
+        from pickup_order_list list
+            left join pickup_order_state_log log
+            on list.order_number = log.order_number
+        where list.order_number = #{orderNumber}
+        order by log.order_state
+    </select>
+    <select id="getMaxOrderNumber" resultType="String">
+        select
+            max(order_number)
+        from
+            pickup_order_list
+    </select>
+    <select id="getMaxOrderStateOfSingleOrder" resultType="Integer" parameterType="java.util.HashMap">
+        select
+            loga.order_state
+        from pickup_order_state_log loga
+        where loga.order_state =
+        (
+            select max(logb.order_state)
+            from pickup_order_state_log logb
+            where loga.order_number = logb.order_number
+        ) and order_number = #{orderNumber}
+    </select>
+    <insert id="addToOrderList" parameterType="java.util.HashMap">
+        insert into
+            pickup_order_list (
+                order_number,
+                customer_email,
+                restaurant_email,
+                sub_total,
+                tax,
+                total_price,
+                note,
+                gen_date
+            ) value (
+                #{orderNumber},
+                #{customerEmail},
+                #{restaurantEmail},
+                #{subTotal},
+                #{tax},
+                #{totalPrice},
+                #{note},
+                #{genDate}
+            )
+    </insert>
+    <insert id="addDishToOrder" parameterType="java.util.HashMap">
+        insert into
+            pickup_order_item (
+                order_number,
+                dish_id,
+                dish_count,
+                gen_date
+            ) value (
+                #{orderNumber},
+                #{dishId},
+                #{dishCount},
+                #{genDate}
+            )
+    </insert>
+    <insert id="addInitialOrderStateToOrder" parameterType="java.util.HashMap">
+        insert into
+            pickup_order_state_log (
+                order_number,
+                order_state,
+                gen_date
+            ) value (
+                #{orderNumber},
+                #{orderState},
+                #{genDate}
+            )
+    </insert>
+    <insert id="updateOrderState" parameterType="java.util.HashMap">
+        insert into
+            pickup_order_state_log (
+                order_number,
+                order_state,
+                gen_date
+            ) value (
+                #{orderNumber},
+                #{orderState},
+                #{genDate}
+            )
+    </insert>
+</mapper>

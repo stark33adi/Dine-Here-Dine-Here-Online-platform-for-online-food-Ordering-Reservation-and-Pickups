@@ -1,0 +1,39 @@
+
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+#content{
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: auto;
+    margin-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 0.7rem;
+    background: rgba(255, 255, 255,.2);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.form-control:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+::placeholder {
+    color: silver !important;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: silver !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: silver !important;
+}
+

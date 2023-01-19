@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.RestaurantDao">
+    <resultMap id="type_map_account" type="java.util.LinkedHashMap">
+        <result column="restaurant_id" property="restaurantId" javaType="Integer"/>
+        <result column="email" property="email" javaType="String"/>
+        <result column="password" property="password" javaType="String"/>
+        <result column="security_question" property="securityQuestion" javaType="String"/>
+        <result column="security_answer" property="securityAnswer" javaType="String"/>
+        <result column="reg_date" property="regDate" javaType="String"/>
+        <result column="gen_date" property="genDateFromAcc" javaType="String"/>
+    </resultMap>
+    <resultMap id="type_map_list" type="java.util.LinkedHashMap">
+        <result column="restaurant_id" property="restaurantId" javaType="Integer"/>
+        <result column="email" property="email" javaType="String"/>
+        <result column="restaurant_name" property="restaurantName" javaType="String"/>
+        <result column="restaurant_abbr_name" property="restaurantAbbrName" javaType="String"/>
+        <result column="address" property="address" javaType="String"/>
+        <result column="phone" property="phone" javaType="String"/>
+        <result column="bg_photo" property="bgPhoto" javaType="String"/>
+        <result column="restaurant_type" property="restaurantType" javaType="String"/>
+        <result column="open_status" property="openStatus" javaType="String"/>
+        <result column="rate_value" property="rateValue" javaType="double"/>
+        <result column="delivery_time" property="deliveryTime" javaType="String"/>
+        <result column="food_type" property="foodType" javaType="String"/>
+        <result column="service_type" property="serviceType" javaType="String"/>
+        <result column="gen_date" property="genDateFromList" javaType="String"/>
+    </resultMap>
+<!--    admin-->
+    <select id="findAllFromAcc" resultMap="type_map_account">
+        select
+            restaurant_id,
+            password,
+            security_question,
+            security_answer,
+            gen_date,
+            reg_date
+        from
+            restaurant_account
+    </select>
+    <select id="findAllFromList" resultMap="type_map_list">
+        select
+            restaurant_id,
+            email,
+            restaurant_name,
+            restaurant_abbr_name,
+            address,
+            phone,
+            bg_photo,
+            restaurant_type,
+            open_status,
+            rate_value,
+            delivery_time,
+            food_type,
+            service_type,
+            gen_date
+        from
+            restaurant_list
+    </select>
+
+<!--    restaurant-->
+    <select id="getAllRestaurantType" resultType="String">
+        select
+            restaurant_type
+        from
+            restaurant_list
+        group by
+            restaurant_type
+        order by
+            restaurant_type
+    </select>
+    <select id="getAllFoodType" resultType="String">
+        select
+            food_type
+        from
+            restaurant_list
+        group by
+            food_type
+        order by
+            food_type
+    </select>
+    <select id="restEmailIsExist" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull(
+                (
+                    select
+                        1
+                    from
+                        restaurant_account
+                    where
+                        email = #{email} limit 1
+                ), 0
+            )
+    </select>
+    <select id="getRestaurantList" resultMap="type_map_list">
+        select
+            restaurant_id,
+            email,
+            restaurant_name,
+            restaurant_abbr_name,
+            address,
+            phone,
+            bg_photo,
+            restaurant_type,
+            open_status,
+            rate_value,
+            delivery_time,
+            food_type,
+            service_type,
+            gen_date
+        from
+            restaurant_list
+    </select>
+    <select id="getRestFromListByRestType" resultMap="type_map_list" parameterType="java.util.HashMap">
+        select
+            restaurant_id,
+            email,
+            restaurant_name,
+            restaurant_abbr_name,
+            address,
+            phone,
+            bg_photo,
+            restaurant_type,
+            open_status,
+            rate_value,
+            delivery_time,
+            food_type,
+            service_type,
+            gen_date
+        from
+            restaurant_list
+        where
+            <trim prefix="" suffix="and" suffixOverrides="and">
+                <if test="serviceType != null and serviceType.length > 0">FIND_IN_SET(#{serviceType}, service_type)</if>
+                <if test="serviceType == null"></if>
+            </trim>
+            FIND_IN_SET(#{restaurantType}, restaurant_type)
+    </select>
+    <select id="getPwdByEmail" resultMap="type_map_account" parameterType="java.util.HashMap">
+        select
+            password
+        from
+            restaurant_account
+        where
+            email = #{email} limit 1
+    </select>
+    <select id="getRestAccSecurityProfileByEmail" resultMap="type_map_account" parameterType="java.util.HashMap">
+        select
+            security_question,
+            security_answer
+        from
+            restaurant_account
+        where
+            email = #{email} limit 1
+    </select>
+    <select id="getRestListProfileByEmail" resultMap="type_map_list" parameterType="java.util.HashMap">
+        select
+            restaurant_id,
+            email,
+            restaurant_name,
+            restaurant_abbr_name,
+            address,
+            phone,
+            bg_photo,
+            restaurant_type,
+            open_status,
+            rate_value,
+            delivery_time,
+            food_type,
+            service_type,
+            gen_date
+        from
+            restaurant_list
+        where
+            email = #{email} limit 1
+    </select>
+    <select id="restPhoneIsExist" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull(
+                (
+                    select
+                        1
+                    from
+                        restaurant_list
+                    where
+                        phone = #{phone} limit 1
+                ), 0
+            )
+    </select>
+    <insert id="addNewRestAcc" parameterType="java.util.HashMap">
+        insert into
+            restaurant_account (
+                email,
+                password,
+                security_question,
+                security_answer,
+                reg_date
+            ) value (
+                #{email},
+                #{password},
+                #{securityQuestion},
+                #{securityAnswer},
+                #{regDate}
+            )
+    </insert>
+    <select id="getMaxId" resultType="Integer">
+        select
+            max(restaurant_id)
+        from
+            restaurant_account
+    </select>
+    <insert id="addNewRestList" parameterType="java.util.HashMap">
+        insert into
+            restaurant_list (
+                restaurant_id,
+                email,
+                restaurant_name,
+                restaurant_abbr_name,
+                address,
+                phone,
+                bg_photo,
+                restaurant_type,
+                open_status,
+                rate_value,
+                delivery_time,
+                food_type,
+                service_type
+            ) value (
+                #{restaurantId},
+                #{email},
+                #{restaurantName},
+                #{restaurantAbbrName},
+                #{address},
+                #{phone},
+                #{bgPhoto},
+                #{restaurantType},
+                #{openStatus},
+                #{rateValue},
+                #{deliveryTimee},
+                #{foodType},
+                #{serviceType}
+            )
+    </insert>
+    <update id="updateRestAccPassword" parameterType="java.util.HashMap">
+        update
+            restaurant_account
+        <trim prefix="set" suffixOverrides="," suffix="where email = #{email} limit 1">
+            <if test="newPassword != null and newPassword.length > 0">password = #{newPassword}, </if>
+            <if test="genDateFromAcc != null and genDateFromAcc.length > 0">gen_date = #{genDateFromAcc} </if>
+        </trim>
+    </update>
+    <update id="updateRestAccSecurityProfile" parameterType="java.util.HashMap">
+        update
+            restaurant_account
+        <trim prefix="set" suffixOverrides="," suffix="where email = #{email} limit 1">
+            <if test="securityQuestion != null and securityQuestion.length > 0">security_question = #{securityQuestion}, </if>
+            <if test="securityAnswer != null and securityAnswer.length > 0">security_answer = #{securityAnswer}, </if>
+            <if test="genDateFromAcc != null and genDateFromAcc.length > 0">gen_date = #{genDateFromAcc} </if>
+        </trim>
+    </update>
+    <update id="updateRestListProfile" parameterType="java.util.HashMap">
+        update
+            restaurant_list
+        <trim prefix="set" suffixOverrides="," suffix="where email = #{email} limit 1">
+            <if test="restaurantName != null and restaurantName.length > 0">restaurant_name = #{restaurantName}, </if>
+            <if test="restaurantAbbrName != null and restaurantAbbrName.length > 0">restaurant_abbr_name = #{restaurantAbbrName}, </if>
+            <if test="address != null and address.length > 0">address = #{address}, </if>
+            <if test="phone != null and phone.length > 0">phone = #{phone}, </if>
+            <if test="bgPhoto != null and bgPhoto.length > 0">bg_photo = #{bgPhoto}, </if>
+            <if test="restaurantType != null and restaurantType.length > 0">restaurant_type = #{restaurantType}, </if>
+            <if test="openStatus != null and openStatus.length > 0">open_status = #{openStatus}, </if>
+            <if test="rateValue != null and rateValue.length > 0">rate_value = #{rateValue}, </if>
+            <if test="deliveryTime != null and deliveryTime.length > 0">delivery_time = #{deliveryTime}, </if>
+            <if test="foodType != null and foodType.length > 0">food_type = #{foodType}, </if>
+            <if test="serviceType != null and serviceType.length > 0">service_type = #{serviceType}, </if>
+            <if test="genDateFromList != null and genDateFromList.length > 0">gen_date = #{genDateFromList} </if>
+        </trim>
+    </update>
+    <select id="getAllPhoto" resultType="java.util.LinkedHashMap">
+        select
+            email,
+            bg_photo as bgPhoto
+        from
+            restaurant_list
+    </select>
+    <select id="getPhoto" resultType="java.util.LinkedHashMap" parameterType="java.util.HashMap">
+        select
+            bg_photo as bgPhoto
+        from
+            restaurant_list
+        where
+            email = #{email} limit 1
+    </select>
+    <update id="addPhoto" parameterType="java.util.HashMap">
+        update
+            restaurant_list
+        set
+            bg_photo = #{bgPhoto}
+        where
+            email = #{email} limit 1
+    </update>
+    <!--restaurant_id,
+    email,
+    restaurant_name,
+    restaurant_abbr_name,
+    address,
+    phone,
+    bg_photo,
+    restaurant_type,
+    open_status,
+    rate_value,
+    delivery_time,
+    food_type,
+    service_type,
+    gen_date-->
+    <select id="filter" resultMap="type_map_list" parameterType="java.util.HashMap">
+        select
+            restaurant_id,
+            email,
+            restaurant_name,
+            restaurant_abbr_name,
+            address,
+            phone,
+            bg_photo,
+            restaurant_type,
+            open_status,
+            rate_value,
+            delivery_time,
+            food_type,
+            service_type,
+            gen_date
+        from
+            restaurant_list
+        where
+            <trim prefix="" suffix="" suffixOverrides="and">
+                <if test="restaurantTypeFilter != null and restaurantTypeFilter.length > 0">restaurant_type = #{restaurantTypeFilter} and </if>
+                <if test="restaurantTypeFilter == null"></if>
+                <if test="deliveryTimeFilter != null and deliveryTimeFilter.length > 0">delivery_time &lt;= #{deliveryTimeFilter} and </if>
+                <if test="deliveryTimeFilter == null"></if>
+                FIND_IN_SET(food_type, #{foodTypeFilter})
+            </trim>
+
+        <if test="rateValueFilter != null and rateValueFilter.length > 0">order by rate_value desc </if>
+        <if test="rateValueFilter == null"/>
+    </select>
+</mapper>

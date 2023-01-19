@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" topmargin="5">
+
+<head>
+
+   <link rel="stylesheet" type="text/css" href="customer_revise.css" />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+</head>
+
+   
+   
+<style>
+body{
+   background-image: url(/Users/jingxuanshi/desktop/good.png);
+}
+</style>
+
+<body>
+   <table style='width: 100%;'>
+      <tr>
+         <td>
+            <img src='Image from iOS.png' class="logo" >
+         </td>
+         <td>
+            <div class='resttitle'>Customer Profile</div>
+         </td>
+         <td>
+            <img src='good.png' class="goodimg" >
+         </td>
+      </tr>
+   </table>
+   
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=2)" width="100%" color = #CACFD2 SIZE=3>
+
+   <div class="columnlist" style="float: left" >
+      <table cellpadding="20" cellspacing="5" style="width:200px">
+         <tr>
+            <td style="width:200px; height:0px ;font-size: 25px; font-weight:bolder;">Profile List</td>
+         </tr>
+         <tr>
+            <td style="width:200px; height:0px ;font-size: 25px;">
+               <input type="button" onclick="" class="bu1" value="Basic Info" >
+            </td>
+         </tr>
+         <tr>
+            <td style="width:200px; height:0px ;font-size: 25px;">
+               <input type="button" onclick="" class="bu1" value="Delivery History" >
+            </td>
+         </tr>
+         <tr>
+            <td style="width:200px; height:0px ;font-size: 25px;">
+               <input type="button" onclick="" class="bu1" value="Pick-up History" >
+            </td>
+
+         </tr>
+         <tr>
+            <td style="width:200px; height:0px ;font-size: 25px;">
+               <input type="button" onclick="" class="bu1" value="Reservation Info" >
+            </td>
+         </tr>
+      </table>
+   </div>
+   
+   
+   
+   <div class="tableinfo" style="float: left;" >
+   <table class="Profiletable" border="1" cellspacing="0" cellpadding="20">
+      <tr>
+         <td class='output'>First Name:</td>
+         <td><input type="text" id="first_name_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Last Name:</td>
+         <td>
+            <input type="text" id="last_name_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Email:</td>
+         <td><input type="text" id="email_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Address:</td>
+         <td><input type="text" id="address_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Zipcode:</td>
+         <td><input type="text" id="zipcode_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Phone:</td>
+         <td><input type="text" id="phone_value" style="width:300px">
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Photo:</td>
+         <td>
+            <div id="display_photo"></div>
+            <a>select a new photo:</a><input id="upload_photo" type="file" />
+         </td>
+      </tr>
+      <tr>
+         <td class='output'>Confirmation</td>
+         <td>
+            <input type="button" id="info_save" value="save" onclick="customerRevise()">&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" name="info_cancel" value="cancel" onclick="click_cancel()">
+         </td>
+      </tr>
+
+   </table>
+   </div>
+   <script src="customer_revise.js"></script>
+</body>
+
+</html>

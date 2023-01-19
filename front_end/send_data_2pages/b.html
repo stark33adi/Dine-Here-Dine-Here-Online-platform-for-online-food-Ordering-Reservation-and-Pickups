@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>b page </title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+//console.log(location.search.concat());
+//manyValues();
+$("#show").html(oneValues());
+})
+
+//receive one value
+function oneValues(){
+var result;
+var url=window.location.search; //get the string behind of ? from url 
+if(url.indexOf("?")!=-1){
+result = url.substr(url.indexOf("=")+1);
+}
+return result;
+}
+
+
+//receive multiple values
+function manyValues(){
+var url=window.location.search;
+if(url.indexOf("?")!=-1){
+var str = url.substr(1);
+   strs = str.split("&"); 
+   var key=new Array(strs.length);
+   var value=new Array(strs.length);
+   for(i=0;i<strs.length;i++){
+    key[i]=strs[i].split("=")[0]
+    value[i]=unescape(strs[i].split("=")[1]); 
+    alert(key[i]+"="+value[i]);
+  } 
+} 
+}
+
+//session get key value
+var data = sessionStorage.getItem('key');
+alert(data)
+
+</script>
+</head>
+<body>
+<span>received value is：</span>
+<span id="show"></span>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="test_url.css" />
+    </head>
+
+    <body>
+
+
+        <h1>TEST Urls</h1>
+            <div class="option_list">
+                <div class="option">
+                    <p>Type</p>
+                    <p>
+                        <select class="typeDropDown" name="" id="object">
+                            <option value="0"></option>
+                        </select>
+                    </p>                
+                </div>
+    
+                <div class="option">
+                    <p>Function</p>
+                    <p>
+                        <select class="functionDropDown" name="" id="object_function">
+                            <option value="0"></option>
+                        </select>
+                    </p>
+                </div>
+                <div class="option">
+                    <p>action</p>
+                    <p>
+                        <button onclick="callUrl()">test this url</button>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="input_list">
+                <p class="input_title">input:</p>
+                <p>
+                    <textarea id="json" wrap="soft" rows="50" cols="10" class="input_content"></textarea>
+                </p>
+                
+            </div>
+
+            <div class="warn">you have to make sure of input data is in json String type !!!</div>
+
+        <script src="test_url.js"></script>
+    </body>
+</html>

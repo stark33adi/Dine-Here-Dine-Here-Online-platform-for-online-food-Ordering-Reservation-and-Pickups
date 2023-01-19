@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.DishDao">
+    <resultMap id="type_map_dish" type="java.util.LinkedHashMap">
+        <result column="dish_id" property="dishId" javaType="Integer"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="dish_type" property="dishType" javaType="String"/>
+        <result column="dish_name" property="dishName" javaType="String"/>
+        <result column="dish_price" property="dishPrice" javaType="String"/>
+        <result column="dish_photo" property="dishPhoto" javaType="String"/>
+        <result column="gen_date" property="genDate" javaType="String"/>
+        <result column="reg_date" property="regDate" javaType="String"/>
+    </resultMap>
+
+    <select id="getAllDishTypeByEmail" resultType="String" parameterType="java.util.HashMap">
+        select
+            dish_type
+        from
+            restaurant_dish
+        where
+            restaurant_email = #{restaurantEmail}
+        group by
+            dish_type
+        order by
+            dish_type
+    </select>
+    <select id="getAllDishType" resultType="String">
+        select
+            dish_type
+        from
+            restaurant_dish
+        group by
+            dish_type
+        order by
+            dish_type
+    </select>
+    <select id="getDishProfileByEmailAndDishType" resultMap="type_map_dish" parameterType="java.util.HashMap">
+        select
+               dish_id,
+               dish_name,
+               dish_price,
+               dish_photo,
+               dish_type,
+               gen_date
+        from restaurant_dish
+        where restaurant_email = #{restaurantEmail} and
+              FIND_IN_SET(#{dishType}, dish_type)
+    </select>
+    <select id="getDishProfileByDishType" resultMap="type_map_dish" parameterType="java.util.HashMap">
+        select
+            restaurant_email,
+            dish_id,
+            dish_name,
+            dish_price,
+            dish_photo,
+            dish_type,
+            gen_date
+        from restaurant_dish
+        where FIND_IN_SET(#{dishType}, dish_type)
+    </select>
+    <select id="getDishProfileByRestaurantEmail" resultMap="type_map_dish" parameterType="java.util.HashMap">
+        select
+            dish_id,
+            restaurant_email,
+            dish_name,
+            dish_price,
+            dish_photo,
+            dish_type,
+            gen_date
+        from
+            restaurant_dish
+        where
+            restaurant_email = #{restaurantEmail}
+    </select>
+    <select id="getProfileByDishId" resultMap="type_map_dish" parameterType="java.util.HashMap">
+        select
+            restaurant_email,
+            dish_name,
+            dish_price,
+            dish_photo,
+            dish_type,
+            gen_date
+        from restaurant_dish
+        where dish_id = #{dishId}
+    </select>
+    <select id="dishIsExist" resultType="boolean">
+        select ifnull((select 1 from restaurant_dish where restaurant_email = #{restaurantEmail} and dish_name = #{dishName} and dish_price = #{dishPrice} and dish_photo = #{dishPhoto} limit 1), 0)
+    </select>
+    <insert id="addNewDish" parameterType="java.util.HashMap">
+        insert into restaurant_dish (restaurant_email, dish_type, dish_name, dish_price, dish_photo, reg_date) value (#{restaurantEmail}, #{dishType}, #{dishName}, #{dishPrice}, #{dishPhoto}, #{regDate})
+    </insert>
+    <update id="updateDishProfileByEmailAndDishId" parameterType="java.util.HashMap">
+        update
+            restaurant_dish
+        <trim prefix="set" suffixOverrides="," suffix="where dish_id = #{dishId} limit 1">
+            <if test="dishType != null and dishType.length > 0">dish_type = #{dishType}, </if>
+            <if test="dishName != null and dishName.length > 0">dish_name = #{dishName}, </if>
+            <if test="dishPrice != null and dishPrice.length > 0">dish_price = #{dishPrice}, </if>
+            <if test="dishPhoto != null and dishPhoto.length > 0">dish_photo = #{dishPhoto}, </if>
+            <if test="genDate != null and genDate.length > 0">gen_date = #{genDate} </if>
+        </trim>
+    </update>
+    <delete id="deleteDishProfileByEmailAndDishId" parameterType="java.util.HashMap">
+        delete from
+            restaurant_dish
+        where
+            dish_id = #{dishId}
+    </delete>
+</mapper>

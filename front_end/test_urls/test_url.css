@@ -1,0 +1,66 @@
+.input-control:placeholder-shown::placeholder {
+    color: transparent;
+}
+
+.input-box{
+    position: relative;
+}
+.input-label {
+    position: absolute;
+    left: 14px; top: 3px;
+    pointer-events: none;
+
+}
+
+.input-control:not(:placeholder-shown) ~ .input-label,
+.input-control:focus ~ .input-label {
+    color: #2486ff;
+    transform: translate(-19px, -19px) scale(0.75) ;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0.1s;
+
+    
+    background-color: white;
+    padding: 4px;
+}
+
+.typeDropDown {
+    width: 120px;
+}
+
+.functionDropDown {
+    width: 200px;
+}
+
+div.option_list {
+    display: flex;
+}
+
+div.option {
+    vertical-align: middle;
+    padding: 2%;
+}
+
+div.input_list {
+    display: flex;
+    padding-top: 2%;
+    padding-left: 2%;
+}
+
+.input_title {
+    padding-right: 1%;
+}
+
+.input_content {
+    resize: none;
+    width: 800px;
+    height: 500px;
+}
+
+.warn {
+    font-size: larger;
+    font-weight: 1000;
+    color: rgb(255, 0, 0);
+    padding-left: 8%;
+}

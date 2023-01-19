@@ -1,0 +1,88 @@
+.dishCount {
+    width: 8%;
+    text-align: right;
+    font-weight: bolder;
+}
+
+.dishName {
+    margin-left: 4px;
+    width: 92%;
+    text-align: left;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header.collapsed {
+    border-bottom: 0;
+}
+
+#more {
+    cursor:pointer;
+    display:inline-block;
+}
+
+.rotate-odd {
+    transform-origin:center 68%;
+
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+
+    transition: transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+    -ms-transition: -ms-transform 0.2s;
+
+}
+
+.rotate-even {
+
+    transform-origin:center 68%;
+
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+
+    transition: transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+    -ms-transition: -ms-transform 0.2s;
+
+}
+
+.progress {
+    width: 740px;
+}
+
+.progress-bar {
+    background-color: #e88000;
+}
+
+.progress-bar-disable {
+    background-color: #868686;
+}
+
+.pad {
+    padding: 15px;
+}
+
+.alert {
+    display: none;
+}
+
+.paymentTitle {
+    width: 360px;
+}
+
+.paymentValue {
+    margin-top: 1px;
+}

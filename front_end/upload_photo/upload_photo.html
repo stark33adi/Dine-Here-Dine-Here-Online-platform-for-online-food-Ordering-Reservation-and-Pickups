@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <input id="upload_photo" type="file" />
+    <br>
+    <div id="div_block_1">
+        <p>The photo you just uploaded will display here</p>
+    </div>
+    <button onclick="load_photo()">load_photo</button>
+    <div id="div_block_2">
+        <p>New load photo display here</p>
+    </div>
+</body>
+<script>
+
+    function load_photo() {
+        let photo = {};
+        $.ajax({
+            type: "POST",
+            url: "http://123.56.14.64/Restaurant_Automation/customer/testPhoto.do",
+            //url: "http://localhost:8080/Restaurant_Automation/customer/testPhoto.do",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(photo),     //data transfer to back-end
+            dataType: "json",	    //the type of data which receive from back-end
+            success: function (data) {
+                if (data.result == 0) {
+                    alert("upload successfully!");
+                    var img = new Image();
+                    img.src = data.data.photo_2;
+                    img.style.width = "200px";
+                    img.style.height = "200px";
+                    div_block = document.getElementById("div_block_2");
+                    div_block.appendChild(img)
+                } else if (data.result != 0) {
+                    alert("unexpected error");
+                }
+            },
+            error: function (message) {
+                alert("upload failed...")
+            }
+        });
+    }
+
+    $("#upload_photo").change(function () {
+        var reader = new FileReader();
+        var AllowImgFileSize = 2097152; //max upload size(byte)（ 2 M = 2097152 B ） bigger than it will fail
+        var file = $("#upload_photo")[0].files[0];
+        var imgUrlBase64;
+        if (file) {
+            //read photo file as Data URL type  
+            imgUrlBase64 = reader.readAsDataURL(file);
+            //console.log(imgUrlBase64);
+
+            reader.onload = function (e) {
+                //var ImgFileSize = reader.result.substring(reader.result.indexOf(",") + 1).length;//the size of photo(byte), not use
+                if (AllowImgFileSize != 0 && AllowImgFileSize < reader.result.length) {
+                    alert('upload failed, please select a photo which is less than 2M!');
+                    return;
+                } else {
+                    //execute upload to back-end
+                    let photo = {};
+                    photo.photo = reader.result
+                    console.log(JSON.stringify(photo));
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8080/RA/uploadPhoto.do",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(photo),     //data transfer to back-end
+                        dataType: "json",	    //the type of data which receive from back-end
+                        success: function (data) {
+                            if (data.result == 0) {
+                                alert("upload successfully!");
+                            } else if (data.result != 0) {
+                                alert("unexpected error");
+                            }
+                        },
+                        error: function (message) {
+                            alert("upload failed...")
+                        }
+                    });
+                }
+                //display photo which source is DataUrl type of string
+                let img = new Image();
+                img.src = reader.result;
+                img.style.width = "200px";
+                img.style.height = "200px";
+                div_block = document.getElementById("div_block_1");
+                div_block.appendChild(img)
+            }
+
+        }
+    })
+</script>

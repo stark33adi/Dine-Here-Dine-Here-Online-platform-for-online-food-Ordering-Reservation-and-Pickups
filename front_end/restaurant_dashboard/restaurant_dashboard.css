@@ -1,0 +1,157 @@
+
+
+
+/* This is where to define the background image style */
+.avatar-wrapper {
+    position: relative;
+    left: 0;
+    height: 200px;
+    width: 300px;
+    margin-right: auto;
+    margin-bottom: 30px;
+    /*border-radius: 50%;*/
+    overflow: hidden;
+    box-shadow: 1px 1px 10px -5px black;
+    transition: all .3s ease;
+}
+.avatar-wrapper:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.avatar-wrapper:hover .profile-pic{
+    opacity: .5;
+}
+.avatar-wrapper .profile-pic {
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease;
+}
+.avatar-wrapper .profile-pic :after{
+    font-family: FontAwesome;
+    content: "\f007";
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    position: center;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+}
+.avatar-wrapper .upload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.avatar-wrapper .upload-button .bi-cloud-arrow-up{
+    position: absolute;
+    font-size: 200px;
+    top: 160px;
+    left: 250px;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s ease;
+    color: #34495e;
+}
+.avatar-wrapper .upload-button:hover .bi-cloud-arrow-up{
+    opacity: .9;
+}
+
+
+/* This is where to define the table style */
+table {
+    /*margin-left: 30px;*/
+    /*margin-right: 100px;*/
+    margin-bottom: 30px;
+    border-collapse: collapse;
+    width: 100%
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+    /*width: 100px;*/
+}
+tr:hover {
+    background-color: silver;
+}
+caption {
+    caption-side: top;
+    font-size: larger;
+    font-weight: bold;
+    color: black;
+}
+
+
+
+
+
+/* This is where to define the background image style */
+.dish-wrapper {
+    position: relative;
+    left: 0;
+    height: 50px;
+    width: 60px;
+    margin-right: auto;
+    margin-bottom: 30px;
+    /*border-radius: 50%;*/
+    overflow: hidden;
+    box-shadow: 1px 1px 10px -5px black;
+    transition: all .3s ease;
+}
+.dish-wrapper:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.dish-wrapper:hover .dish-pic{
+    opacity: .5;
+}
+.dish-wrapper .dish-pic {
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease;
+}
+.dish-wrapper .dish-pic :after{
+    font-family: FontAwesome;
+    content: "\f007";
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    position: center;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+}
+.dish-wrapper .DishUpload-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+.dish-wrapper .DishUpload-button .bi-cloud-arrow-up{
+    position: absolute;
+    /*font-size: 200px;*/
+    top: 10px;
+    left: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s ease;
+    color: #34495e;
+}
+.dish-wrapper .DishUpload-button:hover .bi-cloud-arrow-up{
+    opacity: .9;
+}
+
+
+.list-group-item.list-group-item-action.active {
+    background-color: #343a40;
+    border: 1px solid #343a40;
+}
+a {
+    font-weight: 560;
+    letter-spacing: 1px;
+}

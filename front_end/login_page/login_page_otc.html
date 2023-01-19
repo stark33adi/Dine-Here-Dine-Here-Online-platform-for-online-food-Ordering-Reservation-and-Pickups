@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" topmargin="5" >
+<head >
+    <style>
+     
+         body {
+         background-image:url(bg_image_2.jpg);
+         width:100%;
+         height:100%;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-size: cover;
+         z-index: -1;
+        margin: 0cm;
+        }
+
+         .signing_button{
+             font-size: 16px;
+             padding: 15px;
+             margin-top: 0.5cm;
+             border-radius: 30px;
+             height: 16;
+             width: 40;
+             background-color: rgb(242, 243, 243);
+             transform: translateX(10cm);
+         }
+ 
+         .signing_button:hover{
+             background-color: rgb(213, 216, 216);
+         }
+ 
+         .grid-container{
+             display:grid;
+             grid-template-columns: auto auto auto;
+             grid-template-rows: 300px 100px 200px;
+         }
+ 
+         .address_fields{
+             grid-area: 2/1/3/4;
+         }
+ 
+         .slogan{
+             font-size: 60px;
+             padding-top: 80px;
+             font-weight: bold;
+             margin-bottom: 4px;
+         }
+ 
+         div.slog{
+             height: 40%;
+         }
+ 
+         div.address_input{
+             height: 48px;
+             float:left
+         }
+ 
+         .input_fields{
+             height: 1cm;
+             width:1cm;
+             font-size: 15px;
+             color:rgb(202, 199, 199);
+         }
+ 
+         .order_type_dropdown{
+             position: relative;
+             display: inline-block;
+             font-size: 20px;
+             padding-top: 8px;
+             padding-left: 8px;
+             padding:10px;
+             background-color:rgb(255, 255, 255);
+             margin-left: 4px;
+             color:rgb(0, 0, 0);
+         }
+         .order_type_dropdown:hover{
+             background-color:rgb(233, 232, 232);
+         }
+         .dropdown-content{
+             display: none;
+             position: absolute;
+             background-color: #eee3e3;
+             min-width: 100px;
+             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+             padding: 12px 16px;
+             z-index: 1;
+         }
+         .order_type_dropdown:hover .dropdown-content{
+             display: block;
+         }
+        
+         div.header_logo{
+             text-align: left;
+             background-color: black;
+             color: rgb(255, 255, 255);
+             font-size: 30px;
+             font-weight: bold;
+             font-family: 'Courier New', Courier, monospace;
+             font-style: italic;
+             padding: 20px;
+             margin: 0%;
+             border-color: black;
+             margin-bottom: 1cm;
+         }
+
+         div.a{
+            font-weight: bold;
+            color: black; 
+            padding: 1cm; 
+            text-align: left;
+            font-size: 30px;
+            width: 12cm;
+            margin-left: 0cm;
+         }
+         img.logo{
+            width: 3cm;
+            height: 4cm;
+         }
+    </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ <script src="login_page_otc.js"></script>
+    </head>
+
+ <body >
+      <div class='header_logo'>
+        <div class='logo'> 
+            <img class='logo' src='logo_white.png'>
+        </div>
+        <div class='logo'></div>
+      </div>
+        <div class='grid-container'>
+
+            <div id=1></div>
+            <div id=2 style="width: 12cm;">
+                <div class='a' style="padding-right: 0cm;"> Please Enter One Time Code Sent on xxx-xxx-xxxx</div>
+                <div class='a' style="padding-left: 2cm;">
+                    <form>
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+                        <input class='input_fields' type="text" name='contact_id' id='contact_id' value="*">
+
+                    </form>
+                </div>
+                <div class="a" style="padding-top: 0cm;">
+                    <button class='signing_button' onclick="check_customer_otc()">Next &rarr;</button>
+                </div>
+                </div>
+            <div id=3></div>
+             <div id=4></div>
+             <div id=5></div>
+             <div id=6></div>
+             <div id=7></div>
+             <div id=8></div>
+             <div id=9></div>
+     </div>
+     
+ </body>
+ </html>
+</html>

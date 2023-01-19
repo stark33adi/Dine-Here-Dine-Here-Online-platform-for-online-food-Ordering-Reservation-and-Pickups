@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="customer_dashboard.css"/>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; min-width: 1920px;">
+        <div style="display: flex; flex-direction: row; padding-left: 40px; padding-top: 40px;">
+            <div style="display: flex; flex-direction: row;" onclick="window.location.assign('../restaurant_list_page_alternative/restaurant_list_page_alternative.html')">
+                <img src="../check_out_page/logo_white.png" style="width: 42px; height: 50px;margin-top: 2px; margin-left: 10px; margin-right: 20px;" alt="no image"></img>
+                <h1 style="font-weight: 600; font-size: xxx-large;">Dine Here</h1>
+            </div>
+        </div>
+
+        <div class="f-row">
+            <div class="f-column">
+                <div id="customerActionChoices" class="list-group" style="width: 230px; margin-top: 30px; margin-left: 40px;">
+                    <a id="customerProfile" class="list-group-item list-group-item-action active">Restaurant Profile</a>
+                    <a id="deliveryOrder" class="list-group-item list-group-item-action">Delivery Orders</a>
+                    <a id="pickupOrder" class="list-group-item list-group-item-action" >Pickup Orders</a>
+                    <a id="reservation" class="list-group-item list-group-item-action">Reservation Schedules</a>
+                </div>
+
+            </div>
+
+            <div class="f-column" style="margin-left: 150px; margin-top:30px;">
+                <div id="displayCustomerProfile" class="f-column">
+                    <!-- displaying the restaurant avatar/bg image ???? -->
+                    <div class="avatar-wrapper">
+                        <img id="profileImage" class="profile-pic" style="object-fit: cover;" src="http://bit.ly/2tMBBTd" />
+                        <div class="upload-button">
+                            <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z"/>
+                                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+                            </svg>
+                        </div>
+                        <input class="file-upload" type="file" accept="image/*"/>
+                    </div>
+    
+                    <!-- displaying the restaurant name, address and phone number in the input box -->
+                    <label for="displayCustomerFirstName">First Name: </label>
+                    <input id="displayCustomerFirstName" class="form-control" style="width: 400px; margin-bottom:20px;" autocomplete="on" name placeholder type="text">
+    
+                    <label for="displayCustomerLastName">Last Name: </label>
+                    <input id="displayCustomerLastName" class="form-control" style="width: 400px; margin-bottom:20px;" autocomplete="on" name placeholder type="text">
+    
+                    <label for="displayCustomerAddress">Address: </label>
+                    <input id="displayCustomerAddress" class="form-control" style="width: 400px; margin-bottom:20px;" autocomplete="on" name placeholder type="text">
+    
+                    <label for="displayCustomerZipcode">Zipcode: </label>
+                    <input id="displayCustomerZipcode" class="form-control" style="width: 400px; margin-bottom:20px;" autocomplete="on" name placeholder type="text">
+    
+                    <label for="displayCustomerPhone">Phone Number: </label>
+                    <input id="displayCustomerPhone" class="form-control" style="width: 400px; margin-bottom:20px;" autocomplete="on" name placeholder type="text">
+    
+                    <button id="customerUpdateProfile" class="btn btn-primary" style="margin-bottom: 40px; width: 400px;">Save Changes</button>
+                </div>
+    
+    
+                <div id="displayCustomerDeliveryOrder">
+                    <table>
+                        <thead>
+                            <tr>
+                                <!-- Headers -->
+                                <th>Order Number</th>
+                                <th>Restaurant Name</th>
+                                <th>Restaurant Tel.</th>
+                                <th>Total Price($)</th>
+                                <th>Notes</th>
+                                <th>Order Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="iterateDeliveryOrders">
+                            
+                        </tbody>
+                    </table>
+                </div>
+    
+    
+    
+    
+                <div id="displayCustomerPickupOrder" >
+                    <table>
+                        <thead>
+                        <tr>
+                            <!-- Headers -->
+                            <th class="pickup-order-table-col-1">Order Number</th>
+                            <th class="pickup-order-table-col-2">Restaurant Name</th>
+                            <th class="pickup-order-table-col-3">Restaurant Tel.</th>
+                            <th class="pickup-order-table-col-4">Total Price($)</th>
+                            <th class="pickup-order-table-col-5">Notes</th>
+                            <th class="pickup-order-table-col-6">Order Status</th>
+                            <th class="pickup-order-table-col-7">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="iteratePickupOrders"></tbody>
+                    </table>
+                </div>
+    
+                <div id="displayCustomerReservation">
+                    <table>
+                        <thead>
+                            <tr>
+                                <!-- Headers -->
+                                <th class="reservation-order-table-col-1">Restaurant Name</th>
+                                <th class="reservation-order-table-col-2">Restaurant Addr. </th>
+                                <th class="reservation-order-table-col-3">Restaurant Tel. </th>
+                                <th class="reservation-order-table-col-4">Status</th>
+                                <th class="reservation-order-table-col-5">Notes</th>
+                                <th class="reservation-order-table-col-6">Party Size</th>
+                                <th class="reservation-order-table-col-7">Time</th>
+                                <th class="reservation-order-table-col-8">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="iterateReservation">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+    </div>
+
+
+
+    <script src="customer_dashboard.js"></script>
+
+</body>
+</html>

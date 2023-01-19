@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.ReservationDao">
+    <resultMap id="type_map_reservation" type="java.util.LinkedHashMap">
+        <result column="reservation_id" property="reservationId" javaType="Integer"/>
+        <result column="customer_email" property="customerEmail" javaType="String"/>
+        <result column="cus_firstName" property="customerFirstName" javaType="String"/>
+        <result column="cus_lastName" property="customerLastName" javaType="String"/>
+        <result column="cus_address" property="customerAddress" javaType="String"/>
+        <result column="cus_phone" property="customerPhone" javaType="String"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="rest_name" property="restaurantName" javaType="String"/>
+        <result column="rest_address" property="restaurantAddress" javaType="String"/>
+        <result column="rest_phone" property="restaurantPhone" javaType="String"/>
+        <result column="reservation_state" property="reservationState" javaType="String"/>
+        <result column="reservation_time" property="reservationTime" javaType="String"/>
+        <result column="party_size" property="partySize" javaType="String"/>
+        <result column="note" property="note" javaType="String"/>
+        <result column="gen_date" property="genDate" javaType="String"/>
+    </resultMap>
+
+
+    <select id="getActiveReservationByCustomerEmail" resultMap="type_map_reservation" parameterType="java.util.HashMap">
+        select
+            reservation_id,
+            customer_email,
+            restaurant_email,
+            reservation_state,
+            reservation_time,
+            party_size,
+            note,
+            gen_date
+        from
+            reservation
+        where
+            customer_email = #{customerEmail} and
+            DATE_SUB(reservation_time, interval #{interval} minute) &gt;= #{time}
+    </select>
+    <select id="getInactiveReservationByCustomerEmail" resultMap="type_map_reservation" parameterType="java.util.HashMap">
+        select
+            reservation_id,
+            customer_email,
+            restaurant_email,
+            reservation_state,
+            reservation_time,
+            party_size,
+            note,
+            gen_date
+        from
+            reservation
+        where
+            customer_email = #{customerEmail} and
+            DATE_SUB(reservation_time, interval #{interval} minute) &lt; #{time}
+    </select>
+    <select id="getReservationByCustomerEmail" resultMap="type_map_reservation" parameterType="java.util.HashMap">
+        select
+            re.reservation_id,
+            re.customer_email,
+            cus.first_name "cus_firstName",
+            cus.last_name "cus_lastName",
+            cus.address "cus_address",
+            cus.phone "cus_phone",
+            re.restaurant_email,
+            rest.restaurant_name "rest_name",
+            rest.address "rest_address",
+            rest.phone "rest_phone",
+            re.reservation_state,
+            re.reservation_time,
+            re.party_size,
+            re.note,
+            re.gen_date
+        from
+            reservation re
+            left join
+                restaurant_list rest
+            on re.restaurant_email = rest.email
+            left join
+                customer_account cus
+            on re.customer_email = cus.email
+        where
+            customer_email = #{customerEmail}
+    </select>
+    <select id="getReservationByRestaurantEmail" resultMap="type_map_reservation" parameterType="java.util.HashMap">
+        select
+            re.reservation_id,
+            re.customer_email,
+            cus.first_name "cus_firstName",
+            cus.last_name "cus_lastName",
+            cus.address "cus_address",
+            cus.phone "cus_phone",
+            re.restaurant_email,
+            rest.restaurant_name "rest_name",
+            rest.address "rest_address",
+            rest.phone "rest_phone",
+            re.reservation_state,
+            re.reservation_time,
+            re.party_size,
+            re.note,
+            re.gen_date
+        from
+            reservation re
+            left join
+                restaurant_list rest
+            on re.restaurant_email = rest.email
+            left join
+                customer_account cus
+            on re.customer_email = cus.email
+        where
+            restaurant_email = #{restaurantEmail}
+    </select>
+    <insert id="addNewReservation" parameterType="java.util.HashMap">
+        insert into
+            reservation (
+                customer_email,
+                restaurant_email,
+                reservation_state,
+                reservation_time,
+                party_size,
+                note,
+                gen_date
+            ) value (
+                #{customerEmail},
+                #{restaurantEmail},
+                #{reservationState},
+                #{reservationTime},
+                #{partySize},
+                #{note},
+                CURRENT_DATE
+            )
+    </insert>
+    <update id="updateReservation" parameterType="java.util.HashMap">
+        update
+            reservation
+        set
+            reservation_state = #{reservationState},
+            gen_date = CURRENT_DATE
+        where
+            reservation_id = #{reservationId} limit 1
+    </update>
+    <delete id="deleteReservation" parameterType="java.util.HashMap">
+        delete from
+            reservation
+        where
+            reservation_id = #{reservationId}
+    </delete>
+</mapper>

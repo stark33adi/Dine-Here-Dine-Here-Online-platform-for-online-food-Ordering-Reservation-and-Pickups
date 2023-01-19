@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- this is the title of the tab -->
+    <title>DineHere - Delivery - Signup</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="delivery_guy_signup.css" />
+
+</head>
+
+<body>
+<div style="display: flex; flex-direction: row;">
+    <img src="./logo.png" style="width:78px; height:68px; margin-top: 10px; margin-bottom: 10px;" alt="">
+    <div style=" display:flex; align-items: center;">
+        <div style="font-size: 36px; font-weight: 600; color: black;">Dine Here Delivery</div>
+    </div>
+</div>
+
+<div style="margin-top: 140px; display: flex; justify-content: center;">
+    <div style="display: flex; flex-direction: row">
+
+        <img src="./deliveryguy_bgimage.gif" style="width:710px; height:600px; object-fit: cover;">
+
+        <div style="width: 500px; margin-left: 80px; display: flex; align-items: center">
+            <div>
+
+                <div style="font-weight: bold; font-family: monospace; font-size: xxx-large; margin-bottom: 30px;">Sign up and start earning! </div>
+
+                <div style="margin-bottom: 20px;">
+                    <input id="email" type="text" style=" text-indent: 5px; width: 452px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="email"/>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <input id="phoneNum" type="text" style=" text-indent: 5px; width: 452px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="phone number"/>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <input id="password" type="password" style=" text-indent: 5px; width: 452px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="password"/>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <input id="cfmpwd" type="password" style=" text-indent: 5px; width: 452px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="Confirm password"/>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <span style="display: inline;">
+                        <input id="firstName" type="text" style=" text-indent: 5px; width: 219px; height: 40px; margin-right: 10px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="first name"/>
+                        <input id="lastName" type="text" style=" text-indent: 5px; width: 219px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="last name"/>
+                    </span>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <input id="address" type="text" style=" text-indent: 5px; width: 304px; height: 40px; margin-right: 10px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="address"/>
+                    <input id="zipcode" type="text" style=" text-indent: 5px; width: 134px; height: 40px; outline:0 none; border: 2px solid burlywood; border-radius: 5px; color: #393C3E;" placeholder="zipcode"/>
+                </div>
+
+                <div sstyle="margin-left:auto;">
+                    <button id="login" type="button" class="btn btn-warning" style="color: black; font-weight: bold; margin-right:10px;">
+                        Return to Log in
+                    </button>
+
+                    <button id="signup" type="button" class="btn btn-warning" style="color: black; font-weight: bold;">
+                        Sign up!
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="delivery_guy_signup.js"></script>
+</body>
+</html>

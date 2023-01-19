@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.CustomerDao">
+<!--    admin-->
+    <select id="findAll" resultType="com.rest.model.Customer">
+        select * from customer_account
+    </select>
+    <insert id="addProfile" parameterType="com.rest.model.Customer">
+        insert into customer_account (email, password, first_name, last_name, address, zipcode, phone, reg_date) value (#{email}, #{password}, #{firstName}, #{lastName}, #{address}, #{zipcode}, #{phone}, #{regDate})
+    </insert>
+    <delete id="deleteProfile" parameterType="String">
+        delete from customer_account where email = #{email} limit 1
+    </delete>
+<!--    customer-->
+    <select id="CustomerIsExist" resultType="boolean" parameterType="String">
+        select count(#{email}) from customer_account where email = #{email}
+    </select>
+    <select id="getPwdByEmail" resultType="java.util.LinkedHashMap" parameterType="String">
+        select password from customer_account where email = #{email} limit 1
+    </select>
+    <insert id="signUp" parameterType="com.rest.model.Customer">
+        insert into customer_account (email, password, first_name, last_name, address, zipcode, phone, reg_date, gen_date) value (#{email}, #{password}, #{firstName}, #{lastName}, #{address}, #{zipcode}, #{phone}, #{regDate}, #{regDate})
+    </insert>
+    <update id="updatePassword" parameterType="com.rest.model.Customer">
+        update
+            customer_account
+        <trim prefix="set" suffixOverrides="," suffix="where email = #{email} limit 1">
+            <if test="newPassword != null and newPassword.length > 0">password = #{newPassword}, </if>
+            <if test="genDate != null and genDate.length > 0">gen_date = #{genDate} </if>
+        </trim>
+    </update>
+    <update id="updateProfile" parameterType="java.util.HashMap">
+        update
+            customer_account
+        set
+            first_name = #{firstName},
+            last_name = #{lastName},
+            address = #{address},
+            zipcode = #{zipcode},
+            phone = #{phone},
+            photo = #{photo},
+            gen_date = CURRENT_DATE
+        where
+            email = #{email}
+    </update>
+    <select id="checkPhone" resultType="Integer" parameterType="String">
+        select count(0) from customer_account where phone = #{phone}
+    </select>
+    <select id="getProfile" resultType="java.util.HashMap" parameterType="String">
+        select customer_id as customerId,email,first_name as firstName,last_name as lastName,address,zipcode,phone,photo,reg_date as regDate from customer_account where email = #{email} limit 1
+    </select>
+
+    <select id="testPhoto" resultType="java.util.HashMap">
+        select photo_1, photo_2 from test_photo limit 1
+    </select>
+</mapper>

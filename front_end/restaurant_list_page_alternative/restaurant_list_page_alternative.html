@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dine Here</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="restaurant_list_page_alternative.css">
+</head>
+<body>
+    <script src="restaurant_list_page_alternative.js"></script>
+    <div style="display: flex; flex-direction: column; min-width: 1920px;">
+        <div style="display: flex; flex-direction: row; padding-left: 40px; padding-top: 40px;">
+            <div style="display: flex; flex-direction: row;" onclick="window.location.assign('../restaurant_list_page_alternative/restaurant_list_page_alternative.html')">
+                <img src="./logo_white.png" style="width: 42px; height: 50px;margin-top: 2px; margin-left: 10px; margin-right: 20px;" alt="no image"></img>
+                <h1 style="font-weight: 600; font-size: xxx-large;">Dine Here</h1>
+            </div>
+
+
+            <div class="nav-tab">
+                <button id="option1" type="button" class="btn btn-light" style="box-shadow: inset 0 -2px #4193a9;">Delivery</button>
+                <button id="option2" type="button" class="btn btn-light">Pickup</button>
+                <button id="option3" type="button" class="btn btn-light">Dine in</button>
+            </div>
+            <div id="customerDeliveryAddress" style="display: flex; flex-direction: row; margin-left: 60px; width: 300px;">
+                <div style="margin-top: 22px">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                </div>
+                <div style="display: flex; flex-direction: column; width: 280px;margin-top: 10px; margin-left: 6px;">
+                    <p style="font-size: smaller; margin-bottom: 0;">
+                        My Delivery Address:
+                    </p>
+                    <p id="customerAddress" style="font-size: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        locating...
+                    </p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: baseline; padding-top: 20px; margin-left: auto">
+                <input id="searchRestaurant" type="search" style="height: 34px; font-size: 16px;">
+            </div>
+            <div style="margin-left: 60px; margin-top: 18px; margin-right: 120px;">
+                <div id="customer-dropdown" class="dropdown">
+                    <a data-toggle="dropdown">
+                        <i class="bi bi-person-fill"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </a>
+                    <div id="customer-dropdown-content" class="dropdown-menu dropdown-menu-right" style="width: 200px;">
+                        <!--<div class="dropdown-item">
+                            <a>customer dashboard</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a>log out</a>
+                        </div>-->
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: row; padding: 40px;">
+            <div style="flex: 0 0 280px; margin-left: 50px;">
+                <h4>Filter & Sort</h4>
+                <div style="margin-left: 10px;">
+                    <h5>restaurant type</h5>
+                    <div id="filterRestaurantType" class="list-group">
+                        <button id="filterAll" class="list-group-item list-group-item-action active">All</button>
+                    </div>
+                </div>
+                <div style="margin-left: 10px;">
+                    <h5 style="margin-top: 10px;">rating: </h5>
+                    <div id="filterRating" class="list-group">
+                        <button id="noRateFilter" class="list-group-item list-group-item-action active">no filter</button>
+                        <button id="descend" class="list-group-item list-group-item-action">Best Rate Restaurant</button>
+                    </div>
+
+                </div>
+                <div style="margin-left: 10px;">
+                    <h5 style="margin-top: 10px;">delivery time: </h5>
+                    <div id="filterDeliveryTime" class="list-group">
+                        <button id="noDeliveryTimeFilter" class="list-group-item list-group-item-action active">no filter</button>
+                        <button id="under30mins" class="list-group-item list-group-item-action">under 30 mins</button>
+                    </div>
+                </div>
+                <div style="margin-left: 10px;">
+                    <h5 style="margin-top: 10px;">food type: </h5>
+                    <div id="filterFoodType" class="list-group">
+                        <button id="noFoodTypeFilter" class="list-group-item list-group-item-action active">no filter</button>
+                    </div>
+                </div>
+                <hr>
+                <div style="margin-left: 10px;">
+                    <button id="applyFilter" class="btn btn-light">apply</button>
+                </div>
+
+            </div>
+
+            <div style="margin-left: 90px">
+                <div id="itemList" style="display: flex; flex-direction: row; flex-wrap: wrap; margin-right: auto">
+                    <!--        <div class="card" style="width: 16rem; margin-left: 20px; margin-top: 15px;">-->
+                    <!--            <img class="card-img-top" style="object-fit: cover;" src="http://bit.ly/2tMBBTd" alt="Card image cap">-->
+                    <!--            <div class="card-body" style="padding-top: 0px; padding-bottom: 0px;">-->
+                    <!--                <h5 class="card-title">Restaurant Name</h5>-->
+                    <!--            </div>-->
+                    <!--            <div style="display: flex; justify-content: center">-->
+                    <!--                <div style="display: flex; margin-right: 50px;">-->
+                    <!--                    <div style="margin: auto; padding-right: 5px;">Rate: </div>-->
+                    <!--                    <div id="itemRate" style="margin: auto;">0.00</div>-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <!--        </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>

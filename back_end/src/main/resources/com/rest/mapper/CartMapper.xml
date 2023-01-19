@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rest.dao.CartDao">
+    <resultMap id="type_map_cart_list" type="java.util.LinkedHashMap">
+        <result column="cart_id" property="cartId" javaType="Integer"/>
+        <result column="customer_email" property="customerEmail" javaType="String"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="is_active" property="isActive" javaType="Integer"/>
+        <result column="total_price" property="totalPrice" javaType="String"/>
+        <result column="gen_date" property="genDate" javaType="String"/>
+    </resultMap>
+    <resultMap id="type_map_cart_item" type="java.util.LinkedHashMap">
+        <result column="cart_id" property="cartId" javaType="Integer"/>
+        <result column="dish_id" property="dishId" javaType="Integer"/>
+        <result column="dish_count" property="dishCount" javaType="Integer"/>
+        <result column="gen_date" property="genDate" javaType="String"/>
+    </resultMap>
+    <resultMap id="type_map_cart_all" type="java.util.LinkedHashMap">
+        <result column="cart_id" property="cartId" javaType="Integer"/>
+        <result column="customer_email" property="customerEmail" javaType="String"/>
+        <result column="restaurant_email" property="restaurantEmail" javaType="String"/>
+        <result column="is_active" property="isActive" javaType="Integer"/>
+        <result column="total_price" property="totalPrice" javaType="String"/>
+        <result column="gen_date" property="genDate" javaType="String"/>
+        <collection property="dish" javaType="java.util.List" ofType="java.util.LinkedHashMap">
+            <result column="dish_id" property="dishId" javaType="Integer"/>
+            <result column="dish_price" property="dishPrice" javaType="String"/>
+            <result column="dish_name" property="dishName" javaType="String"/>
+            <result column="dish_count" property="dishCount" javaType="Integer"/>
+        </collection>
+    </resultMap>
+    <select id="isCartExist" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull
+        (
+            (
+                select
+                    1
+                from
+                    cart_list
+                where
+                    customer_email = #{customerEmail} and
+                    is_active = 1
+                limit 1
+            ), 0
+        )
+    </select>
+    <select id="isDIshInCart" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull
+        (
+            (
+                select
+                    1
+                from cart_list list
+                    left join cart_item item
+                    on list.cart_id = item.cart_id
+                where
+                    list.customer_email = #{customerEmail} and
+                    list.is_active = 1 and
+                    item.dish_id = #{dishId}
+                limit 1
+            ), 0
+        )
+    </select>
+    <select id="getMaxCartId" resultType="Integer">
+        select
+            max(cart_id)
+        from
+            cart_list
+    </select>
+    <select id="getCartByCustomerEmail" resultMap="type_map_cart_all" parameterType="java.util.HashMap">
+        select
+            list.cart_id,
+            list.customer_email,
+            list.restaurant_email,
+            list.total_price,
+            item.dish_id,
+            dish.dish_name,
+            dish.dish_price,
+            item.dish_count
+        from cart_list list
+            left join
+            (
+                cart_item item
+                    left join restaurant_dish dish
+                    on item.dish_id = dish.dish_id
+            )
+            on list.cart_id = item.cart_id
+        where customer_email = #{customerEmail} and
+              is_active = 1
+        order by list.cart_id
+    </select>
+    <select id="getPriceByDishId" resultType="String" parameterType="java.util.HashMap">
+        select
+            dish_price
+        from
+            restaurant_dish
+        where
+            dish_id = #{dishId}
+        limit 1
+    </select>
+    <insert id="addCartToCartList" parameterType="java.util.HashMap">
+        insert into
+            cart_list (
+                customer_email,
+                restaurant_email,
+                is_active,
+                total_price,
+                gen_date
+            ) value (
+                #{customerEmail},
+                #{restaurantEmail},
+                #{isActive},
+                #{totalPrice},
+                #{genDate}
+            )
+    </insert>
+    <insert id="addDishToCartItem" parameterType="java.util.HashMap">
+        insert into
+            cart_item (
+                cart_id,
+                dish_id,
+                dish_count,
+                gen_date
+            ) value (
+                #{cartId},
+                #{dishId},
+                #{dishCount},
+                #{genDate}
+            )
+    </insert>
+    <delete id="deleteDishFromCart" parameterType="java.util.HashMap">
+        delete from
+            cart_item
+        where
+            cart_id = #{cartId} and
+            dish_id = #{dishId}
+        limit 1
+    </delete>
+    <select id="getDishCount" resultType="int" parameterType="java.util.HashMap">
+        select
+            item.dish_count
+        from cart_list list
+            left join cart_item item
+            on list.cart_id = item.cart_id
+        where list.customer_email = #{customerEmail} and item.dish_id = #{dishId} and is_active = 1 limit 1
+    </select>
+    <update id="updateDishCount" parameterType="java.util.HashMap">
+        update
+            cart_item
+        set
+            dish_count = #{dishCount},
+            gen_date = #{genDate}
+        where
+            cart_id = #{cartId} and
+            dish_id = #{dishId}
+        limit 1
+    </update>
+    <select id="getTotalPrice" resultType="String" parameterType="java.util.HashMap">
+        select
+            total_price
+        from
+            cart_list
+        where
+            customer_email = #{customerEmail} and
+            is_active = 1
+        limit 1
+    </select>
+    <update id="updateTotalPrice" parameterType="java.util.HashMap">
+        update
+            cart_list
+        set
+            total_price = #{totalPrice}
+        where
+            customer_email = #{customerEmail} and
+            is_active = 1
+        limit 1
+    </update>
+    <select id="isCartActive" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull
+        (
+            (
+                select
+                    1
+                from cart_list
+                where
+                    customer_email = #{customerEmail} and
+                    is_active = 1
+                limit 1
+            ), 0
+        )
+    </select>
+    <select id="isCartToInactive" resultType="boolean" parameterType="java.util.HashMap">
+        select
+            ifnull
+        (
+            (
+                select
+                    1
+                from cart_item
+                where
+                    cart_id = #{cartId}
+                limit 1
+            ), 0
+        )
+    </select>
+    <update id="updateIsActive" parameterType="java.util.HashMap">
+        update
+            cart_list
+        set
+            is_active = 0
+        where
+            cart_id = #{cartId}
+        limit 1
+    </update>
+    <delete id="deleteCart" parameterType="java.util.HashMap">
+        delete from cart_list where cart_id = #{cartId}
+    </delete>
+    <delete id="deleteAllItemInCart" parameterType="java.util.HashMap">
+        delete from cart_item where cart_id = #{cartId}
+    </delete>
+</mapper>

@@ -1,0 +1,16 @@
+
+input:focus {
+    border-color: #e88000;
+    border-width: 2px;
+    outline: 0;
+    /*-webkit-box-shadow: none;*/
+    /*box-shadow: none;*/
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(232, 128, 0,.6);
+    box-shadow: inset 0 2px 1px rgba(0,0,0,.075),0 0 8px rgba(232, 128, 0,.6);
+}
+
+.btn.btn-warning:hover {
+    background-color: #f15a22;
+    color: white  !important;
+    font-weight: bold;
+}
